@@ -68,7 +68,7 @@ function renderAbout() {
                     d'interface utilisateur monopage réactive.
                 </p>
                 <p>
-                    Auteur: Nicolas Chourot
+                    Auteur: Thierry Becker
                 </p>
                 <p>
                     Collège Lionel-Groulx, automne 2024
@@ -143,6 +143,7 @@ async function renderDeleteBookmarkForm(id) {
     $("#abort").show();
     $("#actionTitle").text("Retrait");
     let bookmark = await API_GetBookmark(id);
+    let fav = Favicon(bookmark.Url);
     eraseContent();
     if (bookmark !== null) {
         $("#content").append(`
@@ -152,10 +153,12 @@ async function renderDeleteBookmarkForm(id) {
             <div class="bookmarkRow" bookmark_id=${bookmark.Id}">
                 <div class="bookmarkContainer">
                     <div class="bookmarkLayout">
-                        <div class="bookmarkName">${bookmark.Title}</div>
-                        <div class="bookmarkPhone">${bookmark.Url}</div>
-                        <div class="bookmarkEmail">${bookmark.Category}</div>
-                    </div>
+                    <span class="bookmarkTitle">
+                        <img src="${fav}" class="bookmarkFavicon"/>
+                        ${bookmark.Title}
+                    </span>
+                    <a href="${bookmark.Url}" class="bookmarkCategory">${bookmark.Category}</a>
+                </div>
                 </div>  
             </div>   
             <br>
